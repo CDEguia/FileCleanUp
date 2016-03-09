@@ -9,3 +9,5 @@ t=      num1   +  num2;//compute num1+num2
 t   =   t+num3; //compute new value for t|
 
 cout<<    t    ;
+
+
