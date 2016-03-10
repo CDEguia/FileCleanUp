@@ -26,8 +26,10 @@ bool isNumber(char temp) {
 }
 
 bool isLetter(char temp) {
-	if ((temp >= 'a' && temp <= 'z') && (temp >= 'A' && temp <= 'Z'))
+	if ((temp >= 'a' && temp <= 'z') || (temp >= 'A' && temp <= 'Z')) {
+
 		return true;
+	}
 	else
 	{
 		return false;
@@ -36,9 +38,9 @@ bool isLetter(char temp) {
 
 bool isSpecial(char temp, char spec[]) {
 	for (int i = 0; i < 8; ++i) {			// Special symbol check
-		if (spec[i] == temp) 
-		{ 
-			return true; 
+		if (spec[i] == temp)
+		{
+			return true;
 		}
 	}
 	return false;
@@ -53,63 +55,74 @@ int main() {
 	inp.open("data.txt", ios::in);	//open the file that includes the strings to check
 
 	getline(inp, w);				//get the first word in the file
-	
+
 	while (!inp.eof())				//loop through the lines in the text file
 	{
 		int i = 0;
-		while (w[i] != '\n')		//loops through character in each line
+		while (w[i] != NULL)		//loops through character in each line
 		{
-			if (w[i] == '/' && w[i + 1] == '/') break; //skips any commented code
-			
-			bool found = false;				// changes to TRUE once string is found
-			
-			if (isNumber(w[i])) {		// Integer check
-				char temp = w[i];
-				outp >> temp >> " ";
+			if (w[i] == '/' && w[i + 1] == '/') {
+				break; //skips any commented code
 			}
-			else {			// string is not an integer check for reserved... 
-				if (isLetter(w[i])) {
-					for (int n = 0; n < 4; n++) {
-						if (w[i] == reservedWords[n][0]) {
-							int counter = 0;
-							bool check = true;
-							for each (char temp in reservedWords[n])
-							{
-								if (w[i + counter] != temp)
-									check = false;
-								counter++;
-							}
-							if (check = true) {
-								string temp = reservedWords[n];
-								outp >> temp >> " ";
-								i += counter;
-								found = true; 
-								break;
-							}
-						}
-					}										
-					if (found == false) { 
+			else if (w[i] == ' ') {
+
+			}
+			else if (isNumber(w[i])) // Integer check
+			{
+				outp << w[i] << " ";
+				cout << w[i] << " ";
+			}
+			else if (isLetter(w[i])) {
+				bool found = false;
+				for (int n = 0; n < 4; n++) {	//Reserved word check
+					if (w[i] == reservedWords[n][0]) {
 						int counter = 0;
-						while (!isSpecial(w[i], special)) {
-							outp >> w[i];
-							i++;
+						bool check = true;
+						for each (char temp in reservedWords[n])
+						{
+							if (w[i + counter] != temp)
+								check = false;
+							counter++;
 						}
-						outp >> " ";
-						break;
+						if (check = true) {
+							found = true;
+							string temp = reservedWords[n];
+							outp << temp << " ";
+							cout << temp << " ";
+							i += counter - 1;
+						}
 					}
 				}
-				for (int i = 0; i < 8; ++i) {			// Special symbol check
-					if (special[i] == w[i]) {
+				if (found == false) {
+					while (!isSpecial(w[i], special)) {
+						outp << w[i];
+						cout << w[i];
+						i++;
+					}
+					i--;
+					outp << " ";
+					cout << " ";
+				}
+			}
+			else
+			{
+				//cout << "Special\n";
+				for (int n = 0; n < 8; ++n) {			// Special symbol check
+					if (special[n] == w[i]) {
 						if (w[i] == ';') {
-							outp >> w[i] >> "\n";
+							outp << w[i] << endl;
+							cout << w[i] << endl;
 						}
 						else {
-							outp >> w[i] >> " ";
+							outp << w[i] << " ";
+							cout << w[i] << " ";
 						}
 						break;
 					}
 				}
 			}
+
+
 			i++;
 		}
 		getline(inp, w);			//get the next line
