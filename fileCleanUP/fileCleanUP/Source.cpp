@@ -38,7 +38,7 @@ bool isLetter(char temp) {
 }
 
 bool isSpecial(char temp, char spec[]) {
-	for (int i = 0; i < 8; ++i) {			// Special symbol check
+	for (int i = 0; i < 10; ++i) {			// Special symbol check
 		if (spec[i] == temp)
 		{
 			return true;
@@ -67,9 +67,28 @@ int isReserved(string fullset, int &start, char set[][10]) {
 	}
 	return -1;
 }
+int isReserved(char test[], string set[]) {
+	for (int n = 0; n < 4; n++) {	//Reserved word check
+		if (test[0] == set[n][0]) {
+			int counter = 0;
+			bool check = true;
+			for each (char temp in set[n])
+			{
+				if (test[counter] != temp) {
+					check = false;
+					break;
+				}
+				counter++;
+			}
+			if (check == true) { return n; }
+			return -1;
+		}
+	}
+	return -1;
+}
 
 int main() {
-	char reservedWords[4][10] = { "cout<<","for","int","while" };
+	string reservedWords[4] = { "cout<<","for","int","while" };
 	char special[10] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' , '{' , '}' };
 	string w;						//hold line
 	fstream inp, outp;				//base file
@@ -95,21 +114,26 @@ int main() {
 				cout << w[i] << " ";
 			}
 			else if (isLetter(w[i])) {
-				int word = isReserved(w, i, reservedWords);
-				if (word != -1) {
-					outp << reservedWords[word] << " ";
-					cout << reservedWords[word] << " ";
-				}
-				else {
+					char word[10];
+					int n = 0;
 					while (!isSpecial(w[i], special) && w[i] != ' ') {
-						outp << w[i];
-						cout << w[i];
-						i++;
+						word[n] = w[i];
+						i++; n++;
 					}
+					word[n] = 0;		//assign null terminating char to end
 					i--;
+					int check = isReserved(word, reservedWords);
+					if (check != -1) {
+						outp << reservedWords[check];
+						cout << reservedWords[check];
+					}
+					else
+					{
+						cout << word;
+						outp << word;
+					}
 					outp << " ";
 					cout << " ";
-				}
 			}
 			else 
 			{
