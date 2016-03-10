@@ -94,7 +94,7 @@ int main() {
 					}
 				}
 				if (found == false) {
-					while (!isSpecial(w[i], special)) {
+					while (!isSpecial(w[i], special) && w[i] != ' ') {
 						outp << w[i];
 						cout << w[i];
 						i++;
