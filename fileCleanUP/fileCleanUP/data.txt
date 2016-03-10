@@ -1,5 +1,5 @@
 //declare variables
-int       num1,      nume2,     num3    ,t;
+int       num1,nume2,     num3    ,t;
 
 //initialize variables
 num1   =3;     mum2 =    5    ;

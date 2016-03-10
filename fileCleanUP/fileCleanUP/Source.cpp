@@ -59,6 +59,7 @@ int isReserved(string fullset, int &start, char set[][10]) {
 					break;
 				}
 				counter++;
+				
 			}
 			if (check == true) { start += counter - 1; return n; }
 			return -1;
@@ -69,7 +70,7 @@ int isReserved(string fullset, int &start, char set[][10]) {
 
 int main() {
 	char reservedWords[4][10] = { "cout<<","for","int","while" };
-	char special[8] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' };
+	char special[10] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' , '{' , '}' };
 	string w;						//hold line
 	fstream inp, outp;				//base file
 	
