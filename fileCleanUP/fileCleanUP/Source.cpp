@@ -16,6 +16,7 @@
 #include <fstream>
 
 using namespace std;
+<<<<<<< HEAD
 bool isNumber(char temp) {
 	if (temp >= '0' && temp <= '9')
 		return true;
@@ -45,13 +46,15 @@ bool isSpecial(char temp, char spec[]) {
 	}
 	return false;
 }
+=======
+>>>>>>> refs/remotes/origin/master
 
 int main() {
 	char reservedWords[4][10] = { "cout<<","for","int","while" };
-	char special[8] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' };
+	char special[10][3] = { "+" , "=" , "*" , "-" , ";" , "(" , ")" , "<=", "//", "," };
 	string w;						//hold line
 	fstream inp, outp;				//base file
-	outp.open("newdata.txt", ios::out | ios::binary);
+	
 	inp.open("data.txt", ios::in);	//open the file that includes the strings to check
 
 	getline(inp, w);				//get the first word in the file
@@ -61,6 +64,7 @@ int main() {
 		int i = 0;
 		while (w[i] != NULL)		//loops through character in each line
 		{
+<<<<<<< HEAD
 			if (w[i] == '/' && w[i + 1] == '/') {
 				break; //skips any commented code
 			}
@@ -122,6 +126,9 @@ int main() {
 				}
 			}
 
+=======
+			if (w[i] == '/' && w[i + 1] == '/') break; //skips any commented code
+>>>>>>> refs/remotes/origin/master
 
 			i++;
 		}
