@@ -67,7 +67,7 @@ int isReserved(string fullset, int &start, char set[][10]) {
 	}
 	return -1;
 }
-int isReserved(char test[], string set[]) {
+int isReserved(char test[], char set[][10]) {
 	for (int n = 0; n < 4; n++) {	//Reserved word check
 		if (test[0] == set[n][0]) {
 			int counter = 0;
@@ -75,8 +75,10 @@ int isReserved(char test[], string set[]) {
 			for each (char temp in set[n])
 			{
 				if (test[counter] != temp) {
-					check = false;
-					break;
+					if (temp != '\0') {
+						check = false;
+						break;
+					}
 				}
 				counter++;
 			}
@@ -88,7 +90,7 @@ int isReserved(char test[], string set[]) {
 }
 
 int main() {
-	string reservedWords[4] = { "cout<<","for","int","while" };
+	char reservedWords[4][10] = { "cout<<","for","int","while" };
 	char special[10] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' , '{' , '}' };
 	string w;						//hold line
 	fstream inp, outp;				//base file
@@ -119,9 +121,9 @@ int main() {
 					while (!isSpecial(w[i], special) && w[i] != ' ') {
 						word[n] = w[i];
 						i++; n++;
-					}
-					word[n] = 0;		//assign null terminating char to end
+					}					
 					i--;
+					word[n] = char(0);
 					int check = isReserved(word, reservedWords);
 					if (check != -1) {
 						outp << reservedWords[check];
