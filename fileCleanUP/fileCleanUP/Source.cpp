@@ -11,7 +11,6 @@
 //------------------------------------------------------------------
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <string>
 #include <cstring>
 #include <fstream>
 
@@ -47,26 +46,6 @@ bool isSpecial(char temp, char spec[]) {
 	return false;
 }
 
-int isReserved(string fullset, int &start, char set[][10]) {
-	for (int n = 0; n < 4; n++) {	//Reserved word check
-		if (fullset[start] == set[n][0]) {
-			int counter = 0;
-			bool check = true;
-			for each (char temp in set[n])
-			{
-				if (fullset[start + counter] != temp) {
-					check = false;
-					break;
-				}
-				counter++;
-				
-			}
-			if (check == true) { start += counter - 1; return n; }
-			return -1;
-		}
-	}
-	return -1;
-}
 int isReserved(char test[], char set[][10]) {
 	for (int n = 0; n < 4; n++) {	//Reserved word check
 		if (test[0] == set[n][0]) {
@@ -92,13 +71,14 @@ int isReserved(char test[], char set[][10]) {
 int main() {
 	char reservedWords[4][10] = { "cout<<","for","int","while" };
 	char special[10] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' , '{' , '}' };
-	string w;						//hold line
+	char w[200];
+	
 	fstream inp, outp;				//base file
 	
 	inp.open("data.txt", ios::in);	//open the file that includes the strings to check
 	outp.open("newdata.txt", ios::out);
-	getline(inp, w);				//get the first line in the file
-
+	
+	inp.getline(w, 200);
 	while (!inp.eof())				//loop through the lines in the text file
 	{
 		int i = 0;
@@ -150,13 +130,13 @@ int main() {
 				}
 			}
 			i++;
-		}
-		getline(inp, w);			//get the next line
+		}	
+		inp.getline(w, 200);
 	}
 	//close the file stream
 	inp.close();
 	outp.close();
 	//terminate the program
-	system("pause");
+	std::system("pause");
 	return 0;
 }
