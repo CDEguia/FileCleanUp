@@ -1,7 +1,7 @@
 # FileCleanUp
-Clean up one text file and copy it into another text file
+Clean up one text file and copy it into another text file. Removing any comments, and separating variables, keywords, symboles, and numbers.
 
-takes a line that looks like this:
+Ex. Takes a line that looks like this:
 
 `t=      num1   +  num2;//compute num1+num2`
 
