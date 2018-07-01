@@ -32,12 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../fileCleanUP/fileCleanUP/Source.cpp" />
-		<Unit filename="../fileCleanUP/fileCleanUP/data.txt" />
-		<Unit filename="../fileCleanUP/fileCleanUP/newdata.txt" />
+		<Unit filename="Source.cpp" />
+		<Unit filename="data.txt" />
+		<Unit filename="newdata.txt" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
