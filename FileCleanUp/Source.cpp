@@ -108,6 +108,7 @@ int main() {
                     outp << w[i];
                     cout << w[i];
 				}
+				--i;
 				outp << " ";
 				cout << " ";
 			}
