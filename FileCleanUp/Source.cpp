@@ -51,7 +51,7 @@ int isReserved(char test[], char set[][10]) {
 		if (test[0] == set[n][0]) {
 			int counter = 0;
 			bool check = true;
-			for each (char temp in set[n])
+			for (char temp : set[n])
 			{
 				if (test[counter] != temp) {
 					if (temp != '\0') {
@@ -72,12 +72,12 @@ int main() {
 	char reservedWords[4][10] = { "cout<<","for","int","while" };
 	char special[10] = { '+' , '=' , '*' , '-' , ';' , '(' , ')' , ',' , '{' , '}' };
 	char w[200];
-	
+
 	fstream inp, outp;				//base file
-	
+
 	inp.open("data.txt", ios::in);	//open the file that includes the strings to check
 	outp.open("newdata.txt", ios::out);
-	
+
 	inp.getline(w, 200);
 	while (!inp.eof())				//loop through the lines in the text file
 	{
@@ -90,10 +90,26 @@ int main() {
 			else if (w[i] == ' ') {
 				//does nothing but get next char
 			}
+			else if (w[i] == '"'){
+                outp << w[i];
+				cout << w[i];
+				while(w[++i] != '"'){
+                    outp << w[i];
+                    cout << w[i];
+				}
+				outp << '"';
+				cout << '"';
+			}
 			else if (isNumber(w[i])) // Integer check
-			{						//single digits only
-				outp << w[i] << " ";
-				cout << w[i] << " ";
+			{
+				outp << w[i];
+				cout << w[i];
+				while(isNumber(w[++i])){
+                    outp << w[i];
+                    cout << w[i];
+				}
+				outp << " ";
+				cout << " ";
 			}
 			else if (isLetter(w[i])) {
 					char word[10];
@@ -101,7 +117,7 @@ int main() {
 					while (!isSpecial(w[i], special) && w[i] != ' ') {
 						word[n] = w[i];
 						i++; n++;
-					}					
+					}
 					i--;
 					word[n] = char(0);
 					int check = isReserved(word, reservedWords);
@@ -117,7 +133,7 @@ int main() {
 					outp << " ";
 					cout << " ";
 			}
-			else 
+			else
 			{
 				//cout << "Special\n";
 				if (w[i] == ';') {
@@ -130,13 +146,13 @@ int main() {
 				}
 			}
 			i++;
-		}	
+		}
 		inp.getline(w, 200);
 	}
 	//close the file stream
 	inp.close();
 	outp.close();
-	//terminate the program
-	std::system("pause");
+	//windows pause the program
+	//std::system("pause");
 	return 0;
 }
